@@ -1,0 +1,155 @@
+// This is your Prisma schema file,
+// learn more about it in the docs https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../../../node_modules/.prisma/client"
+  previewFeatures = ["fullTextSearch"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  Client
+  Coach
+}
+
+enum Gender {
+  Female
+  Male
+  NotSpecified
+}
+
+enum Skill {
+  Amateur
+  Novice
+  Pro
+}
+
+enum WorkoutType {
+  Aerobics
+  Boxing
+  Crossfit
+  Pilates
+  Running
+  Streching
+  Yoga
+}
+
+enum Time {
+  TenToThirty
+  ThitryToFifty
+  FiftyToEighty
+  EightyToHundred
+}
+
+enum Location {
+  Pionerskaya
+  Petrogradskaya
+  Udelnaya
+  Zvezdnaya
+  Sportivnaya
+}
+
+enum Payment {
+  Visa
+  Mir
+  Umoney
+}
+
+enum Status {
+  Considering
+  Accepted
+  Declined
+}
+
+model User {
+  id           Int           @id @default(autoincrement())
+  email        String        @unique
+  name         String
+  passwordHash String
+  role         Role
+  gender       Gender @default(NotSpecified)
+  skill        Skill
+  workout      WorkoutType[]
+  avatarUrl    String
+  bgUrl        String
+  coachInfo    Coach?
+  clientInfo   Client?
+  personals    Personal[]
+}
+
+model Coach {
+  user         User      @relation(fields: [userId], references: [id])
+  userId       Int       @unique
+  certUrl      String
+  merits       String
+  hasPersonals Boolean   @default(false)
+  workouts     Workout[]
+}
+
+model Client {
+  user      User       @relation(fields: [userId], references: [id])
+  userId    Int        @unique
+  time      Time
+  kcalTotal Int
+  kcalDay   Int
+  isReady   Boolean    @default(false)
+  reviews   Review[]
+  orders    Order[]
+  Personal  Personal[]
+}
+
+model Workout {
+  id       Int         @id @default(autoincrement())
+  name     String
+  bgUrl    String
+  skill    Skill
+  type     WorkoutType
+  time     Time
+  price    Int
+  kcal     Int
+  gender   Gender
+  videoUrl String
+  coach    Coach       @relation(fields: [coachId], references: [userId])
+  isPromo  Boolean     @default(false)
+  Orders   Order[]
+  Reviews  Review[]
+
+  coachId Int @unique
+}
+
+model Review {
+  id      Int     @id @default(autoincrement())
+  client  Client  @relation(fields: [clientId], references: [userId])
+  workout Workout @relation(fields: [workoutId], references: [id])
+  text    String
+  rating  Int
+
+  clientId  Int
+  workoutId Int
+}
+
+model Order {
+  id      Int     @id @default(autoincrement())
+  client  Client  @relation(fields: [clientId], references: [userId])
+  workout Workout @relation(fields: [workoutId], references: [id])
+  count   Int
+  payment Payment
+
+  workoutId Int
+  clientId  Int
+}
+
+model Personal {
+  id     Int    @id @default(autoincrement())
+  client Client @relation(fields: [clientId], references: [userId])
+  user   User   @relation(fields: [userId], references: [id])
+  status Status @default(Considering)
+
+  clientId Int
+  userId   Int
+}
