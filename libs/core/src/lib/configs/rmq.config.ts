@@ -2,11 +2,11 @@ import { ConfigService, registerAs } from "@nestjs/config";
 import { RmqOptions, Transport } from "@nestjs/microservices";
 
 export const rmqOptions = registerAs('rmq', () => ({
-  user: process.env.RMQ_USER,
-  pass: process.env.RMQ_PASS,
-  host: process.env.RMQ_HOST,
-  queue: process.env.RMQ_QUEUE,
-  exchange: process.env.RMQ_EXCHANGE,
+  user: process.env["RMQ_USER"],
+  pass: process.env["RMQ_PASS"],
+  host: process.env["RMQ_HOST"],
+  queue: process.env["RMQ_QUEUE"],
+  exchange: process.env["RMQ_EXCHANGE"],
 }));
 
 export function getRmqConfig(configService: ConfigService): RmqOptions {

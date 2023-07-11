@@ -1,16 +1,13 @@
-import { Property } from '../enums/property.enum';
 import { IEntity } from '../interfaces/entity.interface';
 import { IReview } from '../interfaces/review.interface';
 
-const { Pros, Cons, Comment, Rating, UserId, ItemId } = Property
-
 export class ReviewEntity implements IEntity<IReview> {
-  public [Pros]: string
-  public [Cons]: string
-  public [Comment]: string
-  public [Rating]: number
-  public [UserId]: number
-  public [ItemId]: number
+  public id!: number
+  public createdAt!: Date
+  public clientId!: number
+  public workoutId!: number
+  public text!: string
+  public rating!: number
 
   constructor(review: IReview) {
     this.fillEntity(review);
@@ -21,11 +18,11 @@ export class ReviewEntity implements IEntity<IReview> {
   }
 
   public fillEntity(review: IReview) {
-    this[Pros] = review[Pros];
-    this[Cons] = review[Cons];
-    this[Comment] = review[Comment];
-    this[Rating] = review[Rating];
-    this[UserId] = review[UserId];
-    this[ItemId] = review[ItemId];
+    this.id = review.id
+    this.createdAt = review.createdAt
+    this.clientId = review.clientId
+    this.workoutId = review.clientId
+    this.text = review.text
+    this.rating = review.rating
   }
 }

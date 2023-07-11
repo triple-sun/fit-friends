@@ -1,5 +1,6 @@
 export enum Property {
     Id = 'id',
+    Name = 'name',
     Email = 'email',
     Payment = 'payment',
     Role = 'role',
@@ -8,6 +9,7 @@ export enum Property {
     AvatarUrl = 'avatarUrl',
     CreatedAt = 'createdAt',
     Page = 'page',
+    Token = 'token'
 }
 
 export enum SizeProperty {

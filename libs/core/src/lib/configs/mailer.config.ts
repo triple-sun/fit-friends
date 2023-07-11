@@ -5,12 +5,12 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
 import { join } from "path";
 
 export const mailerOptions = registerAs('mailer', () => ({
-  port: process.env.MAILER_PORT,
-  host: process.env.MAILER_HOST,
-  user: process.env.MAILER_USER,
-  pass: process.env.MAILER_PASS,
-  from: process.env.MAILER_FROM,
-  login: process.env.LOGIN_LINK
+  port: process.env["MAILER_PORT"],
+  host: process.env["MAILER_HOST"],
+  user: process.env["MAILER_USER"],
+  pass: process.env["MAILER_PASS"],
+  from: process.env["MAILER_FROM"],
+  login: process.env["LOGIN_LINK"]
 }))
 
 export const getMailerConfig = (): MailerAsyncOptions => ({

@@ -1,8 +1,8 @@
 import { Order, Payment } from "@prisma/client";
 
 export interface IOrder extends Partial<Order> {
-  id?: number;
-  createdAt?: Date;
+  id: number;
+  createdAt: Date;
   count: number;
   price: number;
   priceTotal: number;

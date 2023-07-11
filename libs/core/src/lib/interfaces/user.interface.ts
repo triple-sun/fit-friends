@@ -1,19 +1,19 @@
-import { Client, Coach, Gender, Order, Personal, Review, Role, User } from "@prisma/client";
+import { Role, User } from "@prisma/client";
+import { IClient } from "./client.interface";
+import { ICoach } from "./coach.interface";
+import { IReview } from "./review.interface";
+import { IOrder } from "./order.interface";
+import { IPersonal } from "./personal.interface";
 
 export interface IUser extends Partial<User> {
-  id?: number;
   name: string;
   email: string;
-  gender?: Gender;
   role: Role;
   password?: string;
-  passwordHash: string;
-  reviews: Review[];
-  orders: Order[];
-  avatarUrl?: string;
-  bgUrl?: string
-  personals?: Personal[]
-  clientInfo?: Client;
-  coachInfo?: Coach;
-  createdAt?: Date
+
+  reviews?: IReview[];
+  orders?: IOrder[];
+  personals?: IPersonal[]
+  clientInfo?: IClient;
+  coachInfo?: ICoach;
 }

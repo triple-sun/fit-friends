@@ -4,74 +4,65 @@ import { ValidateENVPort, ValidateENVProp } from "../decorators/validate-env.dec
 
 export class APIEnvConfig {
   @Expose()
-  @ValidateIf(({ obj }) => !{...obj}.DATABASE_URL)
+  @ValidateIf(({ obj }) => !{ ...obj }.DATABASE_URL)
   @ValidateENVPort()
-  public API_PORT: number;
+  public API_PORT!: number;
 }
 
 export class MailerEnvConfig {
   @ValidateENVPort()
-  public MAILER_PORT: number;
+  public MAILER_PORT!: number;
 
   @ValidateENVProp()
-  public MAILER_HOST: string;
+  public MAILER_HOST!: string;
 
   @ValidateENVProp()
-  public MAILER_USER: string;
+  public MAILER_USER!: string;
 
   @ValidateENVProp()
-  public MAILER_PASS: string;
+  public MAILER_PASS!: string;
 
   @ValidateENVProp()
-  public MAILER_FROM: string;
+  public MAILER_FROM!: string;
 }
 
 export class PrismaEnvConfig {
   @ValidateENVProp()
-  public PRISMA_DB: string;
+  public PRISMA_DB!: string;
 
   @ValidateENVProp()
-  public PRISMA_HOST: string;
+  public PRISMA_HOST!: string;
 
   @ValidateENVProp()
-  public PRISMA_USER: string;
+  public PRISMA_USER!: string;
 
   @ValidateENVProp()
-  public PRISMA_PASS: string;
+  public PRISMA_PASS!: string;
 
   @ValidateENVProp()
-  public DATABASE_URL: string;
+  public DATABASE_URL!: string;
 }
 
 export class JWTEnvConfig {
   @ValidateENVProp()
-  public JWT_SECRET: string;
+  public JWT_SECRET!: string;
 }
 
 export class RMQEnvConfig {
   @ValidateENVProp()
-  public RMQ_USER: string;
+  public RMQ_USER!: string;
 
   @ValidateENVProp()
-  public RMQ_PASS: string;
+  public RMQ_PASS!: string;
 
   @ValidateENVProp()
-  public RMQ_HOST: string;
+  public RMQ_HOST!: string;
 
   @ValidateENVProp()
-  public RMQ_QUEUE: string;
+  public RMQ_QUEUE!: string;
 
   @ValidateENVProp()
-  public RMQ_EXCHANGE: string;
+  public RMQ_EXCHANGE!: string;
 }
 
-export class CliEnvConfig {
-  @ValidateENVProp()
-  public ADMIN_NAME: string;
-
-  @ValidateENVProp()
-  public ADMIN_PASS: string;
-
-  @ValidateENVProp()
-  public ADMIN_EMAIL: string;
-}
+export type TEnvConfig = APIEnvConfig | MailerEnvConfig | PrismaEnvConfig | JWTEnvConfig | RMQEnvConfig 

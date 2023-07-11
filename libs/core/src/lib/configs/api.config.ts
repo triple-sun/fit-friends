@@ -1,5 +1,5 @@
 import { DocumentBuilder } from "@nestjs/swagger";
-import { PortDefault, Service } from "../enums/utils.enum";
+import { Service } from "../enums/utils.enum";
 
 const getSwaggerConfig = (title: string, desc: string, version: string) => new DocumentBuilder()
   .setTitle(title)
@@ -14,7 +14,7 @@ const getAPIConfig = (name: Service) => {
   return {
     Name: name,
     Desc: desc,
-    Port: process.env.API_PORT ?? PortDefault[name],
+    Port: process.env["API_PORT"],
     Config: getSwaggerConfig(name, desc, '1.0')
 }}
 

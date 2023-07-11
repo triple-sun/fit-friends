@@ -1,8 +1,6 @@
-import { Guitar } from "@prisma/client";
 import { ClassConstructor, plainToInstance } from "class-transformer";
 import { validateSync } from "class-validator";
 import { APIEnvConfig } from "../configs/env.config";
-import { TOrderItems } from "../types/order-item.type";
 
 export const fillObject = <T, V>(dto: ClassConstructor<T>, obj: V) => plainToInstance(dto, obj, { excludeExtraneousValues: true });
 
@@ -36,11 +34,3 @@ export const validateEnv = <T extends typeof APIEnvConfig>(envConfig: T) => (
 export const getSize = (max: number, min: number) => ({ Max: max, Min: min })
 
 export const getAverage = (array: number[] = []) => array.length > 0 ? array.reduce((a, b) => a + b) / array.length : 0
-
-export const getItems = (items: Guitar[]) => {
-  const result: TOrderItems = {}
-
-  items.forEach((item) => result[item.id] = {item, count: result[item.id]?.count ? result[item.id].count++ : 1})
-
-  return Object.values(result)
-}

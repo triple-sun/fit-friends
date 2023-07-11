@@ -1,14 +1,16 @@
-import { Property } from '../enums/property.enum';
+import { Payment } from '@prisma/client';
 import { IEntity } from '../interfaces/entity.interface';
 import { IOrder } from '../interfaces/order.interface';
 
-const { OrderId, Id, UserId, ItemIds } = Property
-
 export class OrderEntity implements IEntity<IOrder> {
-  public [Id]?: number;
-  public [OrderId]?: number;
-  public [UserId]: number
-  public [ItemIds]: number[];
+  public id!: number;
+  public createdAt!: Date;
+  public count!: number;
+  public price!: number;
+  public priceTotal!: number;
+  public payment!: Payment;
+  public clientId!: number;
+  public workoutId!: number;
 
   constructor(order: IOrder) {
     this.fillEntity(order);
@@ -19,9 +21,13 @@ export class OrderEntity implements IEntity<IOrder> {
   }
 
   public fillEntity(order: IOrder) {
-    this[Id] = order[Id];
-    this[OrderId] = order[Id];
-    this[UserId] = order[UserId];
-    this[ItemIds] = order[ItemIds]
+    this.id = order.id
+    this.createdAt = order.createdAt
+    this.count = order.count
+    this.price = order.price
+    this.priceTotal = order.priceTotal
+    this.payment = order.payment
+    this.clientId = order.clientId
+    this.workoutId = order.workoutId
   }
 }

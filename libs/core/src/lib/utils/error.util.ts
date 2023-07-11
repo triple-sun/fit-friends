@@ -1,3 +1,4 @@
+import { NotFoundException } from "@nestjs/common"
 import { IMessageProps } from "../interfaces/error-props.interface"
 import { capitalize } from "./common.util"
 
@@ -42,7 +43,12 @@ export const getENVErrorMessage = (
   {value, targetName, property}: IMessageProps
 ) => `${targetName} ${property.toLowerCase().replace(/_/g, " ")} is required. Current value: ${value}`
 
-export const getLengthErrorMessage = ({property, constraints, value}: IMessageProps) => (`${property} length must be ${
+export const getLengthErrorMessage = ({property, constraints, value}: IMessageProps) => {
+  if (!constraints) {
+    throw new NotFoundException(`${property} constraints are undefined`)
+  }
+
+  return `${property} length must be ${
     constraints[1]
       ? `no more than ${constraints[1]}`
       : ''
@@ -54,4 +60,5 @@ export const getLengthErrorMessage = ({property, constraints, value}: IMessagePr
     constraints[0]
       ? `no less than ${constraints[0]}`
       : ''
-  } symbols. Provided ${property} ${value} is ${value.length} symbols long.`)
+  } symbols. Provided ${property} ${value} is ${value.length} symbols long.`
+}
